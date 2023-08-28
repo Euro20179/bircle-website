@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="common.css" media="all">
+    <link rel="stylesheet" href="leaderboard.css" media="all">
+    <script>
+        if (document.cookie) {
+            fetch(`/api/profile/by-code-token/${document.cookie}`).then(value => value.json()).then(value => {
+                let customCss = value.options?.css
+                if (!customCss) return
+                let head = document.head
+                let link = document.createElement("link")
+                link.rel = 'stylesheet'
+                link.type = 'text/css'
+                link.href = `/user-styles.css?user-id=${value.id}`
+                link.media = 'all'
+                head.appendChild(link)
+            })
+        }
+    </script>
+    <title>Leaderboard</title>
+</head>
+<body>
+    <h1>Leaderboard</h1>
+    <table id="leaderboard">
+        <thead>
+            <tr>
+                <th class="clickable-th" id="id-col" onclick='sortTable("user")'>User id</th>
+                <th class="clickable-th" id="net-worth-col" onclick="sortTable('net-worth')">Net worth</th>
+                <th class="clickable-th" id="percent-col" onclick="sortTable('percentage')">Percentage</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</body>
+<script src="leaderboard.js"></script>
+</html>

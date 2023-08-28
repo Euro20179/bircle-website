@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+</head>
+<body>
+    
+</body>
+<script>
+    let redirectURL = `${window.location.protocol}//${window.location.host}`;
+    const botCLIENT = '788871088674177034'
+
+    //TODO: should probably implement ?state=
+    const url = `https://discord.com/oauth2/authorize?response_type=code&client_id=${botCLIENT}&scope=identify&redirect_uri=${redirectURL}`
+
+    window.location = url
+</script>
+</html>
