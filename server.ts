@@ -40,6 +40,22 @@ app.get("/discord", (_req, res) => {
 })
 
 app.get("/:file", (req, res) => {
+    if (req.params.file === "custom") {
+        fetch("http://localhost:8222/custom").then(res => res.text())
+            .then(html => {
+                res.writeHead(200)
+                res.end(html)
+            })
+        return
+    }
+    else if(req.params.file === "garbage"){
+        fetch("http://localhost:8222/garbage").then(res => res.text())
+            .then(html => {
+                res.writeHead(200)
+                res.end(html)
+            })
+        return
+    }
     let filePath = `${__dirname}/${req.params.file}.html`
     if (!fs.existsSync(filePath)) {
         res.writeHead(404)
@@ -48,6 +64,14 @@ app.get("/:file", (req, res) => {
     }
     res.setHeader("Content-Type", "text/html")
     res.sendFile(filePath)
+})
+
+app.get("/garbage/:path", (req, res) => {
+    fetch(`http://localhost:8222/garbage/${req.params.path}`).then(res => res.text())
+        .then(html => {
+            res.writeHead(200)
+            res.end(html)
+        })
 })
 
 app.get("/custom/:path", (req, res) => {
